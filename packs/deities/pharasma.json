@@ -1,6 +1,6 @@
 {
     "_id": "QZD0u1jxwz0kj8uI",
-    "img": "systems/pf2e/icons/deity/Pharasma.webp",
+    "img": "systems/pf2e/icons/deities/pharasma.webp",
     "name": "Pharasma",
     "system": {
         "attribute": [
@@ -42,7 +42,6 @@
             "3": "Compendium.pf2e.spells-srd.Item.AMEu5zzLN7uCX645",
             "4": "Compendium.pf2e.spells-srd.Item.Jmxru8zMdYMRuO5n"
         },
-        "traits": {},
         "weapons": [
             "dagger"
         ]

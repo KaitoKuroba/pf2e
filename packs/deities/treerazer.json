@@ -1,6 +1,6 @@
 {
     "_id": "ENzMYuzBZGIujSMx",
-    "img": "systems/pf2e/icons/default-icons/deity.svg",
+    "img": "systems/pf2e/icons/deities/treerazer.webp",
     "name": "Treerazer",
     "system": {
         "attribute": [
@@ -46,7 +46,6 @@
             "3": "Compendium.pf2e.spells-srd.Item.KsWhliKfUs3IpW3c",
             "6": "Compendium.pf2e.spells-srd.Item.JbAcSLu62TU1OgNF"
         },
-        "traits": {},
         "weapons": [
             "greataxe"
         ]

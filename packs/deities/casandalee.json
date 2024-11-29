@@ -1,6 +1,6 @@
 {
     "_id": "soiVh53y9RAeSLEk",
-    "img": "systems/pf2e/icons/default-icons/deity.svg",
+    "img": "systems/pf2e/icons/deities/casandalee.webp",
     "name": "Casandalee",
     "system": {
         "attribute": [
@@ -49,7 +49,6 @@
             "3": "Compendium.pf2e.spells-srd.Item.ZYoC630tNGutgbE0",
             "6": "Compendium.pf2e.spells-srd.Item.7Iela4GgVeO3LfAo"
         },
-        "traits": {},
         "weapons": [
             "polytool"
         ]

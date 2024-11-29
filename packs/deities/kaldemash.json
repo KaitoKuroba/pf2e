@@ -1,6 +1,6 @@
 {
     "_id": "hLq1IF3mT8zOfUaE",
-    "img": "systems/pf2e/icons/default-icons/deity.svg",
+    "img": "systems/pf2e/icons/deities/kaldemash.webp",
     "name": "Kaldemash",
     "system": {
         "attribute": [
@@ -47,7 +47,6 @@
             "4": "Compendium.pf2e.spells-srd.Item.zvKWclOZ7A53DObE",
             "7": "Compendium.pf2e.spells-srd.Item.AlbpWWN87yGegoAF"
         },
-        "traits": {},
         "weapons": [
             "dueling-pistol"
         ]

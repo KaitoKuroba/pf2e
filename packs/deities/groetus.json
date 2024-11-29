@@ -1,6 +1,6 @@
 {
     "_id": "WloVxo6HXJdS4YTt",
-    "img": "systems/pf2e/icons/deity/Groetus.webp",
+    "img": "systems/pf2e/icons/deities/groetus.webp",
     "name": "Groetus",
     "system": {
         "attribute": [
@@ -45,7 +45,6 @@
             "5": "Compendium.pf2e.spells-srd.Item.GaRQlC9Yw1BGKHfN",
             "9": "Compendium.pf2e.spells-srd.Item.kUSShxXzY1sPtJA0"
         },
-        "traits": {},
         "weapons": [
             "war-flail"
         ]

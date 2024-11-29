@@ -1,6 +1,6 @@
 {
     "_id": "r5vooG7NfvA9prJK",
-    "img": "systems/pf2e/icons/deity/Kurgess.webp",
+    "img": "systems/pf2e/icons/deities/kurgess.webp",
     "name": "Kurgess",
     "system": {
         "attribute": [
@@ -46,7 +46,6 @@
             "2": "Compendium.pf2e.spells-srd.Item.wzctak6BxOW8xvFV",
             "3": "Compendium.pf2e.spells-srd.Item.o6YCGx4lycsYpww4"
         },
-        "traits": {},
         "weapons": [
             "javelin"
         ]

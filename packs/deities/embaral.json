@@ -1,6 +1,6 @@
 {
     "_id": "hDNLCRnDjYqmPYv6",
-    "img": "systems/pf2e/icons/default-icons/deity.svg",
+    "img": "systems/pf2e/icons/deities/embaral.webp",
     "name": "Embaral",
     "system": {
         "attribute": [
@@ -46,7 +46,6 @@
             "3": "Compendium.pf2e.spells-srd.Item.WsUwpfmhKrKwoIe3",
             "5": "Compendium.pf2e.spells-srd.Item.zfn5RqAdF63neqpP"
         },
-        "traits": {},
         "weapons": [
             "wish-knife"
         ]

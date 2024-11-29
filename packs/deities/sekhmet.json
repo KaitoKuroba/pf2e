@@ -27,7 +27,7 @@
         "publication": {
             "license": "ORC",
             "remaster": true,
-            "title": "Pathfinder Lost Omens: Divine Mysteries"
+            "title": "Pathfinder Lost Omens: Divine Mysteries Web Supplement"
         },
         "rules": [],
         "sanctification": {
@@ -44,11 +44,7 @@
             "4": "Compendium.pf2e.spells-srd.Item.IarZrgCeaiUqOuRu",
             "5": "Compendium.pf2e.spells-srd.Item.YtesyvfAIwXOqISq"
         },
-        "traits": {
-            "otherTags": [
-                "ancient-osirian-gods"
-            ]
-        },
+        "traits": {},
         "weapons": [
             "claw",
             "battle-axe"

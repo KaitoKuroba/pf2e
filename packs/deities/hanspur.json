@@ -1,6 +1,6 @@
 {
     "_id": "QlDnoOwf0PppymTn",
-    "img": "systems/pf2e/icons/default-icons/deity.svg",
+    "img": "systems/pf2e/icons/deities/hanspur.webp",
     "name": "Hanspur",
     "system": {
         "attribute": [
@@ -46,7 +46,6 @@
             "3": "Compendium.pf2e.spells-srd.Item.oUDNCArkQTdhllxD",
             "5": "Compendium.pf2e.spells-srd.Item.zfn5RqAdF63neqpP"
         },
-        "traits": {},
         "weapons": [
             "trident"
         ]

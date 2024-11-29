@@ -1,6 +1,6 @@
 {
     "_id": "JMRGy8Fb1ZYeSbcK",
-    "img": "systems/pf2e/icons/default-icons/deity.svg",
+    "img": "systems/pf2e/icons/deities/vudravati.webp",
     "name": "Vudravati",
     "system": {
         "attribute": [
@@ -46,7 +46,6 @@
             "4": "Compendium.pf2e.spells-srd.Item.McnPlLFvKtQVXNcG",
             "7": "Compendium.pf2e.spells-srd.Item.vPWMEyVTreMOoFnm"
         },
-        "traits": {},
         "weapons": [
             "longspear"
         ]

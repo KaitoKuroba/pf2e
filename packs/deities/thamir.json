@@ -1,6 +1,6 @@
 {
     "_id": "PFp4Sdp2TDDKD62l",
-    "img": "systems/pf2e/icons/deity/Thamir%20Gixx.webp",
+    "img": "systems/pf2e/icons/deities/thamir.webp",
     "name": "Thamir",
     "system": {
         "attribute": [
@@ -9,7 +9,7 @@
         ],
         "category": "deity",
         "description": {
-            "value": "<p><strong>Title</strong> The Silent Blade</p>\n<p><strong>Areas of Concern</strong> Greed, opportunity, thievery</p>\n<p><strong>Edicts</strong> Seize any opportunity that would benefit you, solve your problems with violence, hide your true intentions</p>\n<p><strong>Anathema</strong> Steal from the poor, beg for help or mercy from a fellow worshipper of Thamir</p>"
+            "value": "<p><strong>Title</strong> The Silent Blade</p>\n<p><strong>Areas of Concern</strong> Greed, opportunity, thievery</p>\n<p><strong>Edicts</strong> Seize any opportunity that would benefit you, solve your problems with violence, hide your true intentions</p>\n<p><strong>Anathema</strong> Steal from the poor, beg for help or mercy from a fellow worshipper of Thamir</p>\n<p><strong>Religious Symbol</strong> black dagger and circle</p>\n<p><strong>Sacred Animal</strong> raccoon</p>\n<p><strong>Sacred Colors</strong> black, brown</p>"
         },
         "domains": {
             "alternate": [],
@@ -43,11 +43,6 @@
             "1": "Compendium.pf2e.spells-srd.Item.zdb8cjOIDVKYMWdr",
             "3": "Compendium.pf2e.spells-srd.Item.I0j56TNRmGcTyoqJ",
             "6": "Compendium.pf2e.spells-srd.Item.WPXzPl7YbMEIGWfi"
-        },
-        "traits": {
-            "otherTags": [
-                "other-gods"
-            ]
         },
         "weapons": [
             "dagger"

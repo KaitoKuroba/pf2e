@@ -1,6 +1,6 @@
 {
     "_id": "v67fHklTZ6LoU54q",
-    "img": "systems/pf2e/icons/deity/Cayden%20Cailean.webp",
+    "img": "systems/pf2e/icons/deities/cayden-cailean.webp",
     "name": "Cayden Cailean",
     "system": {
         "attribute": [
@@ -43,7 +43,6 @@
             "2": "Compendium.pf2e.spells-srd.Item.CQb8HtQ1BPeZmu9h",
             "5": "Compendium.pf2e.spells-srd.Item.U58aQWJ47VrI36yP"
         },
-        "traits": {},
         "weapons": [
             "rapier"
         ]
