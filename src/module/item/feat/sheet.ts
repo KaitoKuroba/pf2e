@@ -21,9 +21,9 @@ import {
     localizer,
     objectHasKey,
     sluggify,
-    tagify,
     tupleHasValue,
 } from "@util";
+import { tagify } from "@util/tags.ts";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { featCanHaveKeyOptions } from "./helpers.ts";

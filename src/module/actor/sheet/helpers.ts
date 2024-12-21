@@ -4,7 +4,8 @@ import { AbilityItemPF2e, FeatPF2e, PhysicalItemPF2e } from "@item";
 import { Bulk } from "@item/physical/bulk.ts";
 import { SpellSource } from "@item/spell/index.ts";
 import { coerceToSpellGroupId } from "@item/spellcasting-entry/helpers.ts";
-import { ErrorPF2e, getActionGlyph, ordinalString, traitSlugToObject } from "@util";
+import { ErrorPF2e, getActionGlyph, ordinalString } from "@util";
+import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
 import { AbilityViewData } from "./data-types.ts";
 
@@ -69,7 +70,7 @@ function createAbilityViewData(item: AbilityItemPF2e | FeatPF2e): AbilityViewDat
     return {
         ...R.pick(item, ["id", "img", "name", "actionCost", "frequency"]),
         glyph: getActionGlyph(item.actionCost),
-        usable: !!item.system.selfEffect || !!item.system?.frequency,
+        usable: !!item.system.selfEffect || !!item.system?.frequency || !!item.crafting,
         traits: item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),
         has: {
             aura: item.traits.has("aura") || item.system.rules.some((r) => r.key === "Aura"),

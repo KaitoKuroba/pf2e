@@ -1,7 +1,8 @@
 import type { NoteRESource, RollNoteRuleElement } from "@module/rules/rule-element/roll-note.ts";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
-import { htmlQuery, tagify } from "@util";
+import { htmlQuery } from "@util/dom.ts";
+import { tagify } from "@util/tags.ts";
 import { RuleElementForm, RuleElementFormSheetData } from "./base.ts";
 
 /** Form handler for the RollNote rule element */

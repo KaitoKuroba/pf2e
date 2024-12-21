@@ -455,7 +455,10 @@ const weaponTraits = {
     injection: "PF2E.TraitInjection",
     intelligent: "PF2E.TraitIntelligent",
     invested: "PF2E.TraitInvested",
+    "jousting-d4": "PF2E.TraitJoustingD4",
     "jousting-d6": "PF2E.TraitJoustingD6",
+    "jousting-d8": "PF2E.TraitJoustingD8",
+    "jousting-d10": "PF2E.TraitJoustingD10",
     kickback: "PF2E.TraitKickback",
     light: "PF2E.TraitLight",
     magical: "PF2E.TraitMagical",
@@ -562,6 +565,8 @@ const otherArmorTags: Record<OtherArmorTag, string> = {
 };
 
 const otherConsumableTags: Record<OtherConsumableTag, string> = {
+    "alchemical-food": "PF2E.Item.Physical.OtherTag.AlchemicalFood",
+    "alchemical-tool": "PF2E.Item.Physical.OtherTag.AlchemicalTool",
     herbal: "PF2E.Item.Physical.OtherTag.Herbal",
 };
 
@@ -1297,7 +1302,10 @@ const traitDescriptions = {
     gunslinger: "PF2E.TraitDescriptionGunslinger",
     hag: "PF2E.TraitDescriptionHag",
     halfling: "PF2E.TraitDescriptionHalfling",
+    "jousting-d4": "PF2E.TraitDescriptionJousting",
     "jousting-d6": "PF2E.TraitDescriptionJousting",
+    "jousting-d8": "PF2E.TraitDescriptionJousting",
+    "jousting-d10": "PF2E.TraitDescriptionJousting",
     hampering: "PF2E.TraitDescriptionHampering",
     harnessed: "PF2E.TraitDescriptionHarnessed",
     haunt: "PF2E.TraitDescriptionHaunt",

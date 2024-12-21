@@ -82,7 +82,7 @@ class CraftingAbilityRuleElement extends RuleElementPF2e<CraftingAbilityRuleSche
 
         const slug = this.resolveInjectedProperties(this.slug);
         const key = sluggify(slug, { camel: "dromedary" });
-        const maxSlots = this.maxSlots !== undefined ? Number(this.resolveValue(this.maxSlots)) : null;
+        const maxSlots = this.maxSlots !== undefined ? Math.floor(Number(this.resolveValue(this.maxSlots))) : null;
         const maxItemLevel = Number(this.resolveValue(this.maxItemLevel));
         const existing = this.actor.system.crafting.entries[key];
         if (existing) {
@@ -120,6 +120,18 @@ class CraftingAbilityRuleElement extends RuleElementPF2e<CraftingAbilityRuleSche
 
             // Set a roll option to cue subsequent max-item-level-increasing `ActiveEffectLike`s
             this.actor.rollOptions.all[`crafting:entry:${slug}`] = true;
+        }
+    }
+
+    /** Attach the crafting ability to the feat or ability if not prepared */
+    override afterPrepareData(): void {
+        if (this.ignored) return;
+
+        if (!this.isPrepared && this.item.isOfType("feat", "action") && this.item.actionCost) {
+            const ability = this.actor.crafting.abilities.get(this.slug);
+            if (ability && ability.craftableItems.length) {
+                this.item.crafting = ability;
+            }
         }
     }
 }

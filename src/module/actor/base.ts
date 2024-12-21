@@ -21,6 +21,7 @@ import type { EffectFlags, EffectSource } from "@item/effect/data.ts";
 import { createDisintegrateEffect } from "@item/effect/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { CoinsPF2e } from "@item/physical/coins.ts";
+import { getDefaultEquipStatus } from "@item/physical/helpers.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
@@ -57,7 +58,7 @@ import * as R from "remeda";
 import { v5 as UUIDv5 } from "uuid";
 import { ActorConditions } from "./conditions.ts";
 import { Abilities, VisionLevel, VisionLevels } from "./creature/data.ts";
-import { GetReachParameters, ModeOfBeing } from "./creature/types.ts";
+import type { GetReachParameters, ModeOfBeing, ResourceData } from "./creature/types.ts";
 import { ActorFlagsPF2e, ActorSystemData, ActorTraitsData, PrototypeTokenPF2e, RollOptionFlags } from "./data/base.ts";
 import type { ActorSourcePF2e } from "./data/index.ts";
 import { Immunity, Resistance, Weakness } from "./data/iwr.ts";
@@ -413,6 +414,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return this.synthetics.statistics.get(slug) ?? null;
     }
 
+    /** Returns a resource by slug or by key */
+    getResource(_resource: string): ResourceData | null {
+        return null;
+    }
+
     /** Get roll options from this actor's effects, traits, and other properties */
     getSelfRollOptions(prefix: "self" | "target" | "origin" = "self"): string[] {
         const { rollOptions } = this;
@@ -459,10 +465,17 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             ? new Set([...origin.actor.getRollOptions(), ...this.getSelfRollOptions("target")])
             : new Set([]);
 
-        for (const data of aura.effects.filter((e) => e.predicate.test(rollOptions))) {
-            if (this.itemTypes.effect.some((e) => e.sourceId === data.uuid)) {
-                continue;
-            }
+        const parentOptionsCache: Record<string, string[]> = {};
+        for (const data of aura.effects) {
+            // First check if we already have the effect. If so, skip
+            const alreadyHasEffect = this.itemTypes.effect.some((e) => e.sourceId === data.uuid);
+            if (alreadyHasEffect) continue;
+
+            // Test predication including parent roll options
+            const parentOptions =
+                parentOptionsCache[data.parent.uuid] ??
+                (parentOptionsCache[data.parent.uuid] = data.parent.getRollOptions("parent") ?? []);
+            if (!data.predicate.test([...rollOptions, ...parentOptions])) continue;
 
             if (auraAffectsActor(data, origin.actor, this)) {
                 const effect = await fromUuid(data.uuid);
@@ -1416,6 +1429,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     appliedDamage,
                     context: {
                         type: "damage-taken",
+                        domains: [domain],
                         options: Array.from(rollOptions),
                     },
                     origin: item?.getOriginData(),
@@ -1555,11 +1569,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         const newItemData = item.toObject();
         newItemData.system.quantity = quantity;
-        newItemData.system.equipped.carryType = "worn";
-        if ("invested" in newItemData.system.equipped) {
-            newItemData.system.equipped.invested = item.traits.has("invested") ? false : null;
-        }
-
+        newItemData.system.equipped = getDefaultEquipStatus(item);
         return targetActor.addToInventory(newItemData, container, newStack);
     }
 

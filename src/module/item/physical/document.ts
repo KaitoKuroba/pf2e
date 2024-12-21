@@ -21,7 +21,13 @@ import type {
     PhysicalSystemData,
     Price,
 } from "./data.ts";
-import { CoinsPF2e, computeLevelRarityPrice, handleHPChange, prepareBulkData } from "./helpers.ts";
+import {
+    CoinsPF2e,
+    computeLevelRarityPrice,
+    getDefaultEquipStatus,
+    handleHPChange,
+    prepareBulkData,
+} from "./helpers.ts";
 import { getUsageDetails, isEquipped } from "./usage.ts";
 import { DENOMINATIONS } from "./values.ts";
 
@@ -645,7 +651,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     }
 
     /** Include mystification-related rendering instructions for views that will display this data. */
-    protected override traitChatData(dictionary: Record<string, string>): TraitChatData[] {
+    override traitChatData(dictionary?: Record<string, string>): TraitChatData[] {
         const traitData = super.traitChatData(dictionary);
         for (const trait of traitData) {
             trait.mystified = !this.isIdentified && MystifiedTraits.has(trait.value);
@@ -722,10 +728,9 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         // Clear the apex selection in case this is an apex item being copied from a previous owner
         delete this._source.system.apex?.selected;
 
-        this._source.system.equipped = { carryType: "worn" };
-        const isSlottedItem = this.system.usage.type === "worn" && !!this.system.usage.where;
-        if (isSlottedItem && this.actor?.isOfType("character")) {
-            this._source.system.equipped.inSlot = false;
+        // If this is being dragged to a compendium or world items, clear the equip data
+        if (!this.actor) {
+            this._source.system.equipped = getDefaultEquipStatus(this);
         }
 
         return super._preCreate(data, options, user);

@@ -15,9 +15,9 @@ import {
     objectHasKey,
     ordinalString,
     sortStringRecord,
-    tagify,
     tupleHasValue,
 } from "@util";
+import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
 import { createDescriptionPrepend, createSpellRankLabel } from "./helpers.ts";
 import type {

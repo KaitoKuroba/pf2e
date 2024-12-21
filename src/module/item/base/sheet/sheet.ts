@@ -27,11 +27,11 @@ import {
     sluggify,
     SORTABLE_BASE_OPTIONS,
     sortStringRecord,
-    tagify,
     tupleHasValue,
 } from "@util";
+import { createSortable } from "@util/destroyables.ts";
+import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
-import Sortable from "sortablejs";
 import type * as TinyMCE from "tinymce";
 import { CodeMirror } from "./codemirror.ts";
 import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-element-form/index.ts";
@@ -353,8 +353,10 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         // Add implementation for viewing an item's roll options
         const viewRollOptionsElement = htmlQuery(rulesPanel, "a[data-action=view-roll-options]");
         viewRollOptionsElement?.addEventListener("click", async () => {
-            const rollOptions = R.sortBy(this.item.getRollOptions("item").sort(), (o) => o.includes(":"));
-            const content = await renderTemplate("systems/pf2e/templates/items/roll-options.hbs", { rollOptions });
+            const content = await renderTemplate("systems/pf2e/templates/system/roll-options-tooltip.hbs", {
+                description: game.i18n.localize("PF2E.Item.Rules.Hint.RollOptions"),
+                rollOptions: R.sortBy(this.item.getRollOptions("item").sort(), (o) => o.includes(":")),
+            });
             game.tooltip.dismissLockedTooltips();
             game.tooltip.activate(viewRollOptionsElement, {
                 content: createHTMLElement("div", { innerHTML: content }),
@@ -477,9 +479,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         }
 
         // Tagify other-tags input if present
-        tagify(htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.otherTags"]'), {
-            maxTags: 6,
-        });
+        tagify(htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.otherTags"]'), { maxTags: 6 });
 
         // Handle select and input elements that show modified prepared values until focused
         const modifiedPropertyFields = htmlQueryAll<HTMLSelectElement | HTMLInputElement>(html, "[data-property]");
@@ -527,7 +527,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         // Allow drag/drop sorting of rule elements
         const rules = htmlQuery(html, ".rule-element-forms");
         if (rules) {
-            Sortable.create(rules, {
+            createSortable(rules, {
                 ...SORTABLE_BASE_OPTIONS,
                 handle: ".drag-handle",
                 onEnd: async (event) => {

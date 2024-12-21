@@ -5,6 +5,7 @@ import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunner } from "@module/migration/runner/index.ts";
 import { LanguageSelector } from "@system/tag-selector/languages.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, localizer, objectHasKey, sluggify } from "@util";
+import { DestroyableManager } from "@util/destroyables.ts";
 import Tagify from "@yaireo/tagify";
 import "@yaireo/tagify/dist/tagify.css";
 import * as R from "remeda";
@@ -156,7 +157,7 @@ class HomebrewElements extends SettingsMenuPF2e {
             if (!input) throw ErrorPF2e("Unexpected error preparing form");
             const localize = localizer("PF2E.SETTINGS.Homebrew");
 
-            new Tagify(input, {
+            const tagify = new Tagify(input, {
                 editTags: 1,
                 hooks: {
                     beforeRemoveTag: (tags): Promise<void> => {
@@ -181,6 +182,7 @@ class HomebrewElements extends SettingsMenuPF2e {
                     }
                 },
             });
+            DestroyableManager.instance.observe(tagify);
         }
 
         htmlQuery(html, "[data-action=damage-add]")?.addEventListener("click", async () => {

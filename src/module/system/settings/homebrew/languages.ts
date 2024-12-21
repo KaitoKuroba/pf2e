@@ -11,6 +11,7 @@ import {
     sluggify,
     tupleHasValue,
 } from "@util";
+import { createSortable } from "@util/destroyables.ts";
 import * as R from "remeda";
 import Sortable from "sortablejs";
 import { HomebrewTag, LanguageNotCommon, LanguageSettings, LanguageSettingsSheetData } from "./data.ts";
@@ -74,12 +75,12 @@ export class LanguagesManager {
         });
 
         for (const list of htmlQueryAll(html, "ul[data-languages]")) {
-            new Sortable(list, {
+            createSortable(list, {
                 ...SORTABLE_BASE_OPTIONS,
                 group: "languages",
                 sort: false,
                 swapThreshold: 1,
-                onEnd: (event) => this.#onDropLanguage(event),
+                onEnd: this.#onDropLanguage.bind(this),
             });
         }
 

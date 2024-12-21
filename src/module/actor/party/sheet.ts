@@ -16,6 +16,7 @@ import { SheetOptions, createSheetTags, eventToRollParams } from "@module/sheet/
 import { SocketMessage } from "@scripts/socket.ts";
 import { SettingsMenuOptions } from "@system/settings/menu.ts";
 import { createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, signedInteger } from "@util";
+import { createTooltipster } from "@util/destroyables.ts";
 import * as R from "remeda";
 import { PartyPF2e } from "./document.ts";
 
@@ -186,7 +187,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         const members = this.actor.members;
         if (members.length === 0) return null;
 
-        // Get all member languages. If the common language is taken, replace with common (does nothing unless the party is strange)
+        // Get all member languages. If the common language is taken, replace with "common" explicitly
         const commonLanguage = game.pf2e.settings.campaign.languages.commonLanguage;
         const allLanguages = new Set(members.flatMap((m) => m.system.details.languages?.value ?? []));
         if (commonLanguage && allLanguages.delete(commonLanguage)) {
@@ -230,7 +231,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                         actors: this.#getActorsThatUnderstand(language),
                     }),
                 ),
-                (l) => l.label,
+                (l) => (l.slug === "common" ? "" : l.label),
             ),
             skills: R.sortBy(
                 Object.entries(CONFIG.PF2E.skills).map(([slug, { label }]): SkillData => {
@@ -359,7 +360,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             const titleLabel = game.i18n.localize("PF2E.Actor.Party.MembersLabel");
             const title = createHTMLElement("strong", { children: [titleLabel] });
             const content = createHTMLElement("span", { children: [title, members] });
-            $(languageTag).tooltipster({ content });
+            createTooltipster(languageTag, { content });
         }
 
         // Mouseover summary skill tooltips to show all actor modifiers
@@ -375,8 +376,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 return row;
             });
 
-            const content = createHTMLElement("div", { children: labels });
-            $(skillTag).tooltipster({ content });
+            createTooltipster(skillTag, { content: createHTMLElement("div", { children: labels }) });
         }
 
         // Mouseover tooltip for exploration activities
@@ -390,7 +390,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     classes: ["item-summary"],
                     innerHTML: await TextEditor.enrichHTML(document.description, { rollData }),
                 });
-                $(activityElem).tooltipster({
+                createTooltipster(activityElem, {
                     contentAsHTML: true,
                     content,
                     interactive: true,

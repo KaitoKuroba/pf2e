@@ -2,7 +2,8 @@ import { StrikeData } from "@actor/data/base.ts";
 import { ActorSheetPF2e, SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
-import { htmlClosest, htmlQuery, tagify, traitSlugToObject } from "@util";
+import { htmlClosest, htmlQuery } from "@util/dom.ts";
+import { tagify, traitSlugToObject } from "@util/tags.ts";
 import type { HazardPF2e } from "./document.ts";
 import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./types.ts";
 

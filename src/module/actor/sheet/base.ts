@@ -42,6 +42,7 @@ import {
     signedInteger,
     tupleHasValue,
 } from "@util";
+import { createSortable } from "@util/destroyables.ts";
 import * as R from "remeda";
 import Sortable from "sortablejs";
 import { ActorSizePF2e } from "../data/size.ts";
@@ -658,14 +659,17 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             const handler = handlers[actionTarget?.dataset.action ?? ""];
             if (handler && actionTarget) {
                 event.stopImmediatePropagation();
+
                 // Temporarily remove the listener to ignore unintentional double clicks
                 html.removeEventListener("click", sheetHandler);
+                setTimeout(() => {
+                    html.addEventListener("click", sheetHandler);
+                }, 50);
+
                 try {
                     await handler(event, actionTarget);
                 } catch (error) {
                     console.error(error);
-                } finally {
-                    html.addEventListener("click", sheetHandler);
                 }
             }
         };
@@ -693,7 +697,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 onEnd: (event) => this.#onDropInventoryItem(event),
             };
 
-            new Sortable(list, options);
+            createSortable(list, options);
         }
     }
 
@@ -808,9 +812,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             .split(",")
             .map((s) => s.trim())
             .filter((s) => !!s);
+        const levelString = element.dataset.level;
         const tab = game.pf2e.compendiumBrowser.tabs.equipment;
         const filter = await tab.getFilterData();
-        const { checkboxes } = filter;
+        const checkboxes = filter.checkboxes;
 
         for (const itemType of checkboxesFilterCodes) {
             const checkbox = checkboxes.itemTypes;
@@ -821,7 +826,17 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             }
         }
 
-        tab.open(filter);
+        if (levelString) {
+            const level = filter.level;
+            const newValue = Math.clamp(Number(levelString), level.min, level.max);
+            if (!Number.isNaN(newValue)) {
+                level.from = newValue;
+                level.to = newValue;
+            }
+            level.isExpanded = true;
+        }
+
+        tab.open({ filter });
     }
 
     protected override _canDragStart(selector: string): boolean {
